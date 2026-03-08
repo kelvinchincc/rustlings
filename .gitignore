@@ -1,17 +1,19 @@
-*.swp
+# Cargo
 target/
-**/*.rs.bk
-.DS_Store
-*.pdb
-exercises/clippy/Cargo.toml
-exercises/clippy/Cargo.lock
-rust-project.json
-.idea
-.vscode/*
-!.vscode/extensions.json
-*.iml
-*.o
-public/
+Cargo.lock
+!/Cargo.lock
 
-# Local Netlify folder
-.netlify
+# State file
+.rustlings-state.txt
+
+# OS
+.DS_Store
+.direnv/
+
+# Editor
+*.swp
+.idea
+*.iml
+
+# Ignore file for editors like Helix
+.ignore

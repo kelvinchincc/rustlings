@@ -1,11 +1,259 @@
-<a name="5.5.1"></a>
+## Unreleased
+
+### Changed
+
+- `vecs2`: Removed the use of `map` and `collect`, which are only taught later.
+
+## 6.5.0 (2025-08-21)
+
+### Added
+
+- Check that Clippy is installed before initialization
+
+### Changed
+
+- Upgrade to Rust edition 2024
+- Raise the minimum supported Rust version to `1.88`
+- Don't follow symlinks in the file watcher
+- `dev new`: Don't add `.rustlings-state.txt` to `.gitignore`
+
+### Fixed
+
+- Fix file links in VS Code
+- Fix error printing when the progress bar is shown
+- `dev check`: Don't check formatting if there are no solution files
+
+## 6.4.0 (2024-11-11)
+
+### Added
+
+- The list of exercises is now searchable by pressing `s` or `/` 🔍️ (thanks to [@frroossst](https://github.com/frroossst))
+- New option `c` in the prompt to manually check all exercises ✅ (thanks to [@Nahor](https://github.com/Nahor))
+- New command `check-all` to manually check all exercises ✅ (thanks to [@Nahor](https://github.com/Nahor))
+- Addictive animation for showing the progress of checking all exercises. A nice showcase of parallelism in Rust ✨
+- New option `x` in the prompt to reset the file of the current exercise 🔄
+- Allow `dead_code` for all exercises and solutions ⚰️ (thanks to [@huss4in](https://github.com/huss4in))
+- Pause input while running an exercise to avoid unexpected prompt interactions ⏸️
+- Limit the maximum number of exercises to 999. Any community exercises willing to reach that limit? 🔝
+
+### Changed
+
+- `enums3`: Remove redundant enum definition task (thanks to [@senekor](https://github.com/senekor))
+- `if2`: Make the exercise less confusing by avoiding "fizz", "fuzz", "foo", "bar" and "baz" (thanks to [@senekor](https://github.com/senekor))
+- `hashmap3`: Use the method `Entry::or_default`.
+- Update the state of all exercises when checking all of them (thanks to [@Nahor](https://github.com/Nahor))
+- The main prompt doesn't need a confirmation with ENTER on Unix-like systems anymore.
+- No more jumping back to a previous exercise when its file is changed. Use the list to jump between exercises.
+- Dump the solution file after an exercise is done even if the solution's directory doesn't exist.
+- Rework the footer in the list.
+- Optimize the file watcher.
+
+### Fixed
+
+- Fix bad contrast in the list on terminals with a light theme.
+
+## 6.3.0 (2024-08-29)
+
+### Added
+
+- Add the following exercise lints:
+  - `forbid(unsafe_code)`: You shouldn't write unsafe code in Rustlings.
+  - `forbid(unstable_features)`: You don't need unstable features in Rustlings and shouldn't rely on them while learning Rust.
+  - `forbid(todo)`: You forgot a `todo!()`.
+  - `forbid(empty_loop)`: This can only happen by mistake in Rustlings.
+  - `deny(infinite_loop)`: No infinite loops are needed in Rustlings.
+  - `deny(mem_forget)`: You shouldn't leak memory while still learning Rust.
+- Show a link to every exercise file in the list.
+- Add scroll padding in the list.
+- Break the help footer of the list into two lines when the terminal width isn't big enough.
+- Enable scrolling with the mouse in the list.
+- `dev check`: Show the progress of checks.
+- `dev check`: Check that the length of all exercise names is lower than 32.
+- `dev check`: Check if exercise contains no tests and isn't marked with `test = false`.
+
+### Changed
+
+- The compilation time when installing Rustlings is reduced.
+- Pressing `c` in the list for "continue on" now quits the list after setting the selected exercise as the current one.
+- Better highlighting of the solution file after an exercise is done.
+- Don't show the output of successful tests anymore. Instead, show the pretty output for tests.
+- Be explicit about `q` only quitting the list and not the whole program in the list.
+- Be explicit about `r` only resetting one exercise (the selected one) in the list.
+- Ignore the standard output of `git init`.
+- `threads3`: Remove the queue length and improve tests.
+- `errors4`: Use match instead of a comparison chain in the solution.
+- `functions3`: Only take `u8` to avoid using a too high number of iterations by mistake.
+- `dev check`: Always check with strict Clippy (warnings to errors) when checking the solutions.
+
+### Fixed
+
+- Fix the error on some systems about too many open files during the final check of all exercises.
+- Fix the list when the terminal height is too low.
+- Restore the terminal after an error in the list.
+
+## 6.2.0 (2024-08-09)
+
+### Added
+
+- Show a message before checking and running an exercise. This gives the user instant feedback and avoids confusion if the checks take too long.
+- Show a helpful error message when trying to install Rustlings with a Rust version lower than the minimum one that Rustlings supports.
+- Add a `README.md` file to the `solutions/` directory.
+- Allow initializing Rustlings in a Cargo workspace.
+- `dev check`: Check that all solutions are formatted with `rustfmt`.
+
+### Changed
+
+- Remove the state file and the solutions directory from the generated `.gitignore` file.
+- Run the final check of all exercises in parallel.
+- Small exercise improvements.
+
+## 6.1.0 (2024-07-10)
+
+#### Added
+
+- `dev check`: Check that all exercises (including community ones) include at least one `TODO` comment.
+- `dev check`: Check that all exercises actually fail to run (not already solved).
+
+#### Changed
+
+- Make enum variants more consistent between enum exercises.
+- `iterators3`: Teach about the possible case of integer overflow during division.
+
+#### Fixed
+
+- Exit with a helpful error message on missing/unsupported terminal/TTY.
+- Mark the last exercise as done.
+
+## 6.0.1 (2024-07-04)
+
+Small exercise improvements and fixes.
+Most importantly, fixed that the exercise `clippy1` was already solved 😅
+
+## 6.0.0 (2024-07-03)
+
+This release is the result of a complete rewrite to deliver a ton of new features and improvements ✨
+The most important changes are highlighted below.
+
+### Installation
+
+The installation has been simplified a lot!
+To install Rustlings after installing Rust, all what you need to do now is running the following command:
+
+```bash
+cargo install rustlings
+```
+
+Yes, this means that Rustlings is now on [crates.io](https://crates.io/crates/rustlings) 🎉
+
+You can read about the motivations of this change in [this issue](https://github.com/rust-lang/rustlings/issues/1919).
+
+### UI/UX
+
+- The UI is now responsive when the terminal is resized.
+- The progress bar was moved to the bottom so that you can always see your progress and the current exercise to work on.
+- The current exercise path is now a terminal link. It will open the exercise file in your default editor when you click on it.
+- A small prompt is now always shown at the bottom. It allows you to choose an action by entering a character. For example, entering `h` will show you the hint of the current exercise.
+- The comment "I AM NOT DONE!" doesn't exist anymore. Instead of needing to remove it to go to the next exercise, you need to enter `n` in the terminal.
+
+### List mode
+
+A new list mode was added!
+You can enter it by entering `l` in the watch mode.
+It offers the following features:
+
+- Browse all exercises and see their state (pending/done).
+- Filter exercises based on their state (pending/done).
+- Continue at another exercise. This allows you to skip some exercises or go back to previous ones.
+- Reset an exercise so you can start over and revert your changes.
+
+### Solutions
+
+After finishing an exercise, a solution file will be available and Rustlings will show you its path in green.
+This allows you to compare your solution with an idiomatic solution and maybe learn about other ways to solve a problem.
+
+While writing the solutions, all exercises have been polished 🌟
+For example, every exercise now contains `TODO` comments to highlight what the user needs to change and where.
+
+### LSP support out of the box
+
+Instead of creating a `project.json` file using `rustlings lsp`, Rustlings now works with a `Cargo.toml` file out of the box.
+No actions are needed to activate the language server `rust-analyzer`.
+
+This should avoid issues related to the language server or to running exercises, especially the ones with Clippy.
+
+### Clippy
+
+Clippy lints are now shown on all exercises, not only the Clippy exercises 📎
+Make Clippy your friend from early on 🥰
+
+### Community Exercises
+
+Rustlings now supports community exercises!
+
+Do you want to create your own set of Rustlings exercises to focus on some specific topic?
+Or do you want to translate the original Rustlings exercises?
+Then follow the link to the guide about [community exercises](https://rustlings.rust-lang.org/community-exercises)!
+
+## 5.6.1 (2023-09-18)
+
+#### Changed
+
+- Converted all exercises with assertions to test mode.
+
+#### Fixed
+
+- `cow1`: Reverted regression introduced by calling `to_mut` where it
+  shouldn't have been called, and clarified comment.
+- `primitive_types3`: Require at least an array of 100 elements.
+- Removed hint comments when no hint exists for the exercise.
+- `as_ref_mut`: Fixed a typo in a test function name.
+- `enums3`: Fixed formatting with `rustfmt`.
+
+## 5.6.0 (2023-09-04)
+
+#### Added
+
+- New exercise: `if3`, teaching the user about `if let` statements.
+- `hashmaps2`: Added an extra test function to check if the amount of fruits is higher than zero.
+- `enums3`: Added a test for `Message`.
+- `if1`: Added a test case to check equal values.
+- `if3`: Added a note specifying that there are no test changes needed.
+
+#### Changed
+
+- Swapped the order of threads and smart pointer exercises.
+- Rewrote the CLI to use `clap` - it's matured much since we switched to `argh` :)
+- `structs3`: Switched from i32 to u32.
+- `move_semantics`: Switched 1-4 to tests, and rewrote them to be way simpler, while still teaching about the same
+  concepts.
+
+#### Fixed
+
+- `iterators5`:
+  - Removed an outdated part of the hint.
+  - Renamed variables to use snake_case.
+- `vecs2`: Updated the hint to reference the renamed loop variable.
+- `enums3`: Changed message string in test so that it gets properly tested.
+- `strings2`: Corrected line number in hint, then removed it (this both happened as part of this release cycle).
+- `primitive_types4`: Updated hint to the correct ending index.
+- `quiz1`: Removed duplicated sentence from exercise comments.
+- `errors4`: Improved comment.
+- `from_into`: Fixed test values.
+- `cow1`: Added `.to_mut()` to distinguish from the previous test case.
+- `threads2`: Updated hint text to reference the correct book heading.
+
+#### Housekeeping
+
+- Cleaned up the explanation paragraphs at the start of each exercise.
+- Lots of Nix housekeeping that I don't feel qualified to write about!
+- Improved CI workflows, we're now testing on multiple platforms at once.
+
 ## 5.5.1 (2023-05-17)
 
 #### Fixed
 
 - Reverted `rust-project.json` path generation due to an upstream `rust-analyzer` fix.
 
-<a name="5.5.0"></a>
 ## 5.5.0 (2023-05-17)
 
 #### Added
@@ -40,7 +288,6 @@
 - Added a markdown linter to run on GitHub actions
 - Split quick installation section into two code blocks
 
-<a name="5.4.1"></a>
 ## 5.4.1 (2023-03-10)
 
 #### Changed
@@ -55,8 +302,6 @@
 - `arc1`: Improved readability by avoiding implicit dereference
 - `macros4`: Prevented auto-fix by adding `#[rustfmt::skip]`
 - `cli`: Actually show correct progress percentages
-
-<a name="5.4.0"></a>
 
 ## 5.4.0 (2023-02-12)
 
@@ -86,8 +331,6 @@
 
 - Bumped min Rust version to 1.58 in installation script
 
-<a name="5.3.0"></a>
-
 ## 5.3.0 (2022-12-23)
 
 #### Added
@@ -111,7 +354,7 @@
 - **structs3**: Clarifed the hint
 - **quiz2, as_ref_mut, options1, traits1, traits2**: Clarified hints
 - **traits1, traits2, cli**: Tidied up unmatching backticks
-- **enums2**: Removed unneccessary indirection of self
+- **enums2**: Removed unnecessary indirection of self
 - **enums3**: Added an extra tuple comment
 
 #### Housekeeping
@@ -119,8 +362,6 @@
 - Added a VSCode extension recommendation
 - Applied some Clippy and rustfmt formatting
 - Added a note on Windows PowerShell and other shell compatibility
-
-<a name="5.2.1"></a>
 
 ## 5.2.1 (2022-09-06)
 
@@ -134,8 +375,6 @@
 #### Housekeeping
 
 - Fixed a typo in README.md
-
-<a name="5.2.0"></a>
 
 ## 5.2.0 (2022-08-27)
 
@@ -153,15 +392,11 @@
 - **quiz1**: Adjusted the explanations to be consistent with
   the tests
 
-<a name="5.1.1"></a>
-
 ## 5.1.1 (2022-08-17)
 
 #### Bug Fixes
 
 - Fixed an incorrect assertion in options1
-
-<a name="5.1.0"></a>
 
 ## 5.1.0 (2022-08-16)
 
@@ -196,8 +431,6 @@
 - Fixed a typo in integration_tests.rs
 - Clarified manual installation instructions using `cargo install --path .`
 - Added a link to our Zulip in the readme file
-
-<a name="5.0.0"></a>
 
 ## 5.0.0 (2022-07-16)
 
@@ -271,8 +504,6 @@
 - Updated spacing in Cargo.toml.
 - Added a GitHub actions config so that tests run on every PR/commit.
 
-<a name="4.8.0"></a>
-
 ## 4.8.0 (2022-07-01)
 
 #### Features
@@ -293,8 +524,6 @@
 - Replaced the git.io URL with the fully qualified URL because of git.io's sunsetting.
 - Removed the deprecated Rust GitPod extension.
 
-<a name="4.7.1"></a>
-
 ## 4.7.1 (2022-04-20)
 
 #### Features
@@ -314,8 +543,6 @@
 
 - The changelog will now be manually written instead of being automatically generated by the
   Git log.
-
-<a name="4.7.0"></a>
 
 ## 4.7.0 (2022-04-14)
 
@@ -357,8 +584,6 @@
 - Add hints on how to get GCC installed (#741) ([bc56861](https://github.com/rust-lang/rustlings/commit/bc5686174463ad6f4f6b824b0e9b97c3039d4886))
 - Fix some code blocks that were not highlighted ([17f9d74](https://github.com/rust-lang/rustlings/commit/17f9d7429ccd133a72e815fb5618e0ce79560929))
 
-<a name="4.6.0"></a>
-
 ## 4.6.0 (2021-09-25)
 
 #### Features
@@ -381,8 +606,6 @@
   - Clarify instructions ([df25684c](https://github.com/rust-lang/rustlings/commit/df25684cb79f8413915e00b5efef29369849cef1))
 - **quiz1:** Fix inconsistent wording (#826) ([03131a3d](https://github.com/rust-lang/rustlings/commit/03131a3d35d9842598150f9da817f7cc26e2669a))
 
-<a name="4.5.0"></a>
-
 ## 4.5.0 (2021-07-07)
 
 #### Features
@@ -402,8 +625,6 @@
 - **quiz1:** Updated question description (#794) ([d8766496](https://github.com/rust-lang/rustlings/commit/d876649616cc8a8dd5f539f8bc1a5434b960b1e9))
 - **try_from_into, from_str:** hints for dyn Error ([11d2cf0d](https://github.com/rust-lang/rustlings/commit/11d2cf0d604dee3f5023c17802d69438e69fa50e))
 - **variables5:** confine the answer further ([48ffcbd2](https://github.com/rust-lang/rustlings/commit/48ffcbd2c4cc4d936c2c7480019190f179813cc5))
-
-<a name="4.4.0"></a>
 
 ## 4.4.0 (2021-04-24)
 
@@ -446,8 +667,6 @@
   - updated progress percentage ([1c6f7e4b](https://github.com/rust-lang/rustlings/commit/1c6f7e4b7b9b3bd36f4da2bb2b69c549cc8bd913))
   - added progress info ([c0e3daac](https://github.com/rust-lang/rustlings/commit/c0e3daacaf6850811df5bc57fa43e0f249d5cfa4))
 
-<a name="4.3.0"></a>
-
 ## 4.3.0 (2020-12-29)
 
 #### Features
@@ -470,8 +689,6 @@
   - Update description (#584) ([96347df9](https://github.com/rust-lang/rustlings/commit/96347df9df294f01153b29d9ad4ba361f665c755))
 - **vec1:** Have test compare every element in a and v ([9b6c6293](https://github.com/rust-lang/rustlings/commit/9b6c629397b24b944f484f5b2bbd8144266b5695))
 
-<a name="4.2.0"></a>
-
 ## 4.2.0 (2020-11-07)
 
 #### Features
@@ -491,8 +708,6 @@
   - remove 'unused doc comment' warning ([472d8592](https://github.com/rust-lang/rustlings/commit/472d8592d65c8275332a20dfc269e7ac0d41bc88))
   - missing comma in test ([4fb230da](https://github.com/rust-lang/rustlings/commit/4fb230daf1251444fcf29e085cee222a91f8a37e))
 - **quiz3:** Second test is for odd numbers, not even. (#553) ([18e0bfef](https://github.com/rust-lang/rustlings/commit/18e0bfef1de53071e353ba1ec5837002ff7290e6))
-
-<a name="4.1.0"></a>
 
 ## 4.1.0 (2020-10-05)
 
@@ -515,8 +730,6 @@
 - Remind the user of the hint option (#425) ([9f61db5d](https://github.com/rust-lang/rustlings/commit/9f61db5dbe38538cf06571fcdd5f806e7901e83a))
 - **cli:** Added 'cls' command to 'watch' mode (#474) ([4f2468e1](https://github.com/rust-lang/rustlings/commit/4f2468e14f574a93a2e9b688367b5752ed96ae7b))
 - **try_from_into:** Add insufficient length test (#469) ([523d18b8](https://github.com/rust-lang/rustlings/commit/523d18b873a319f7c09262f44bd40e2fab1830e5))
-
-<a name="4.0.0"></a>
 
 ## 4.0.0 (2020-07-08)
 
@@ -559,8 +772,6 @@
 - **test2:** name of type String and &str (#394) ([d6c0a688](https://github.com/rust-lang/rustlings/commit/d6c0a688e6a96f93ad60d540d4b326f342fc0d45))
 - **variables6:** minor typo (#419) ([524e17df](https://github.com/rust-lang/rustlings/commit/524e17df10db95f7b90a0f75cc8997182a8a4094))
 
-<a name="3.0.0"></a>
-
 ## 3.0.0 (2020-04-11)
 
 #### Breaking Changes
@@ -583,8 +794,6 @@
 - add new exercises for generics (#280) ([76be5e4e](https://github.com/rust-lang/rustlings/commit/76be5e4e991160f5fd9093f03ee2ba260e8f7229))
 - **ci:** add buildkite config ([b049fa2c](https://github.com/rust-lang/rustlings/commit/b049fa2c84dba0f0c8906ac44e28fd45fba51a71))
 
-<a name="2.2.1"></a>
-
 ### 2.2.1 (2020-02-27)
 
 #### Bug Fixes
@@ -595,13 +804,11 @@
 
 - Add clippy lints (#269) ([1e2fd9c9](https://github.com/rust-lang/rustlings/commit/1e2fd9c92f8cd6e389525ca1a999fca4c90b5921))
 
-<a name="2.2.0"></a>
-
 ## 2.2.0 (2020-02-25)
 
 #### Bug Fixes
 
-- Update deps to version compatable with aarch64-pc-windows (#263) ([19a93428](https://github.com/rust-lang/rustlings/commit/19a93428b3c73d994292671f829bdc8e5b7b3401))
+- Update deps to version compatible with aarch64-pc-windows (#263) ([19a93428](https://github.com/rust-lang/rustlings/commit/19a93428b3c73d994292671f829bdc8e5b7b3401))
 - **docs:**
   - Added a necessary step to Windows installation process (#242) ([3906efcd](https://github.com/rust-lang/rustlings/commit/3906efcd52a004047b460ed548037093de3f523f))
   - Fixed mangled sentence from book; edited for clarity (#266) ([ade52ff](https://github.com/rust-lang/rustlings/commit/ade52ffb739987287ddd5705944c8777705faed9))
@@ -624,8 +831,6 @@
 - Added traits exercises (#274 but specifically #216, which originally added
   this :heart:) ([b559cdd](https://github.com/rust-lang/rustlings/commit/b559cdd73f32c0d0cfc1feda39f82b3e3583df17))
 
-<a name="2.1.0"></a>
-
 ## 2.1.0 (2019-11-27)
 
 #### Bug Fixes
@@ -642,8 +847,6 @@
 #### Features
 
 - **watch:** show hint while watching ([8143d57b](https://github.com/rust-lang/rustlings/commit/8143d57b4e88c51341dd4a18a14c536042cc009c))
-
-<a name="2.0.0"></a>
 
 ## 2.0.0 (2019-11-12)
 
@@ -665,8 +868,6 @@
 - **cli:** check for rustc before doing anything ([36a033b8](https://github.com/rust-lang/rustlings/commit/36a033b87a6549c1e5639c908bf7381c84f4f425))
 - **hint:** Add test for hint ([ce9fa6eb](https://github.com/rust-lang/rustlings/commit/ce9fa6ebbfdc3e7585d488d9409797285708316f))
 
-<a name="1.5.1"></a>
-
 ### 1.5.1 (2019-11-11)
 
 #### Bug Fixes
@@ -677,8 +878,6 @@
 - **structs1:** Remove misleading comment ([f72e5a8f](https://github.com/rust-lang/rustlings/commit/f72e5a8f05568dde04eaeac10b9a69872f21cb37))
 - **threads:** Move Threads behind SLT ([fbe91a67](https://github.com/rust-lang/rustlings/commit/fbe91a67a482bfe64cbcdd58d06ba830a0f39da3), closes [#205](https://github.com/rust-lang/rustlings/issues/205))
 - **watch:** clear screen before each `verify()` ([3aff590](https://github.com/rust-lang/rustlings/commit/3aff59085586c24196a547c2693adbdcf4432648))
-
-<a name="1.5.0"></a>
 
 ## 1.5.0 (2019-11-09)
 
@@ -704,8 +903,6 @@
 - Added exercise for struct update syntax ([1c4c8764](https://github.com/rust-lang/rustlings/commit/1c4c8764ed118740cd4cee73272ddc6cceb9d959))
 - **iterators2:** adds iterators2 exercise including config ([9288fccf](https://github.com/rust-lang/rustlings/commit/9288fccf07a2c5043b76d0fd6491e4cf72d76031))
 
-<a name="1.4.1"></a>
-
 ### 1.4.1 (2019-08-13)
 
 #### Bug Fixes
@@ -713,8 +910,6 @@
 - **iterators2:** Remove syntax resulting in misleading error message ([4cde8664](https://github.com/rust-lang/rustlings/commit/4cde86643e12db162a66e62f23b78962986046ac))
 - **option1:** Add test for prematurely passing exercise ([a750e4a1](https://github.com/rust-lang/rustlings/commit/a750e4a1a3006227292bb17d57d78ce84da6bfc6))
 - **test1:** Swap assertion parameter order ([4086d463](https://github.com/rust-lang/rustlings/commit/4086d463a981e81d97781851d17db2ced290f446))
-
-<a name="1.4.0"></a>
 
 ## 1.4.0 (2019-07-13)
 
@@ -732,8 +927,6 @@
 - **changelog:** Use clog for changelogs ([34e31232](https://github.com/rust-lang/rustlings/commit/34e31232dfddde284a341c9609b33cd27d9d5724))
 - **iterators2:** adds iterators2 exercise including config ([9288fccf](https://github.com/rust-lang/rustlings/commit/9288fccf07a2c5043b76d0fd6491e4cf72d76031))
 
-<a name="1.3.0"></a>
-
 ### 1.3.0 (2019-06-05)
 
 #### Features
@@ -749,15 +942,11 @@
 - Fix broken link (#164, @HanKruiger)
 - Remove highlighting and syntect (#167, @komaeda)
 
-<a name="1.2.2"></a>
-
 ### 1.2.2 (2019-05-07)
 
 #### Bug Fixes
 
 - Reverted `--nocapture` flag since it was causing tests to pass unconditionally
-
-<a name="1.2.1"></a>
 
 ### 1.2.1 (2019-04-22)
 
@@ -766,16 +955,12 @@
 - Fix the `--nocapture` feature (@komaeda)
 - Provide a nicer error message for when you're in the wrong directory
 
-<a name="1.2.0"></a>
-
 ### 1.2.0 (2019-04-22)
 
 #### Features
 
 - Add errors to exercises that compile without user changes (@yvan-sraka)
 - Use --nocapture when testing, enabling `println!` when running (@komaeda)
-
-<a name="1.1.1"></a>
 
 ### 1.1.1 (2019-04-14)
 
@@ -789,8 +974,6 @@
 - Fix links by deleting book version (@diodfr, #142)
 - Canonicalize paths to fix path matching (@cjpearce, #143)
 
-<a name="1.1.0"></a>
-
 ### 1.1.0 (2019-03-20)
 
 - errors2.rs: update link to Rust book (#124)
@@ -800,15 +983,11 @@
 - Give a warning when Rustlings isn't run from the right directory (#123)
 - Verify that rust version is recent enough to install Rustlings (#131)
 
-<a name="1.0.1"></a>
-
 ### 1.0.1 (2019-03-06)
 
 - Adds a way to install Rustlings in one command (`curl -L https://git.io/rustlings | bash`)
 - Makes `rustlings watch` react to create file events (@shaunbennett, #117)
 - Reworks the exercise management to use an external TOML file instead of just listing them in the code
-
-<a name="1.0.0"></a>
 
 ### 1.0.0 (2019-03-06)
 
